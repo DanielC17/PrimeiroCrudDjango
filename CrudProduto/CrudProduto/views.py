@@ -13,3 +13,16 @@ lista_produtos = [produto1, produto2, produto3]
 
 def produto(request):
     return render(request, "index.html", {"lista_produtos":lista_produtos})
+
+def addProduto(request):
+    if request.method == 'POST':
+        nome_produto = request.POST.get('nome_produto', str)
+        descricao = request.POST.get('descricao', str)
+        valor = request.POST.get('valor', float)
+        quantidade = request.POST.get('quantidade', int)
+        id = len(lista_produtos) + 1 
+        produto = class_produto(id, nome_produto, descricao, valor, quantidade)
+        lista_produtos.append(produto)
+        return render(request, "add.html", {"lista_produtos":lista_produtos})
+    else:
+        return render(request, "add.html", {"lista_produtos":lista_produtos})
